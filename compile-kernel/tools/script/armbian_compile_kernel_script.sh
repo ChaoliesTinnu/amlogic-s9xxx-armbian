@@ -78,9 +78,11 @@ package_list="all"
 compress_format="xz"
 
 # Compile toolchain download mirror, run on Armbian
-dev_repo="https://github.com/ophub/kernel/releases/download/dev"
+# dev_repo="https://github.com/ophub/kernel/releases/download/dev"
+dev_repo="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel/"
 # Arm GNU Toolchain source: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
-gun_file="arm-gnu-toolchain-13.2.rel1-aarch64-aarch64-none-elf.tar.xz"
+# gun_file="arm-gnu-toolchain-13.2.rel1-aarch64-aarch64-none-elf.tar.xz"
+gun_file="gcc-arm-9.2-2019.12-aarch64-aarch64-none-elf.tar.xz"
 # Set the toolchain path
 toolchain_path="/usr/local/toolchain"
 # Set the default cross-compilation toolchain: [ gcc / clang ]
