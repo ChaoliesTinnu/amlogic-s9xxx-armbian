@@ -1,7 +1,16 @@
 name: Rename and Upload Release Asset
 
 on:
+  repository_dispatch:
   workflow_dispatch:
+    inputs:
+      set_release:
+        description: "test test"
+        required: false
+        default: "default-e"
+        type: choice
+        options:
+          - default
 
 jobs:
   rename-and-upload:

@@ -22,7 +22,7 @@ on:
       armbian_board:
         description: "Select device board."
         required: false
-        default: "all"
+        default: "sw799"
         type: choice
         options:
           - all
@@ -161,7 +161,7 @@ on:
       armbian_kernel:
         description: "Select kernel version."
         required: false
-        default: "6.1.y_6.6.y"
+        default: "5.15.161"
         type: choice
         options:
           - 5.4.y
@@ -171,6 +171,8 @@ on:
           - 6.6.y
           - 6.1.y_6.6.y
           - 5.15.y_5.10.y
+          - 5.15.161
+          - 6.1.96
       auto_kernel:
         description: "Auto use the latest kernel."
         required: false
