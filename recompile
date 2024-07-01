@@ -279,18 +279,20 @@ toolchain_check() {
         export MFLAGS=" LLVM=1 LLVM_IAS=1 "
     else
         # Choosing Arm GNU Toolchain based on the platform
-        if [[ "${arch_info}" == "x86_64" ]]; then
-            gun_file="${gun_file_x86_64}"
-            gun_bin="aarch64-none-linux-gnu-"
-        else
-            gun_file="${gun_file_aarch64}"
-            gun_bin="aarch64-none-elf-"
-        fi
+        # if [[ "${arch_info}" == "x86_64" ]]; then
+        #     gun_file="${gun_file_x86_64}"
+        #     gun_bin="aarch64-none-linux-gnu-"
+        # else
+        #     gun_file="${gun_file_aarch64}"
+        #     gun_bin="aarch64-none-elf-"
+        # fi
+        dev_repo="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.3.rel1/binrel"
+        gun_file="arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
 
         # Download Arm GNU Toolchain
         [[ -d "${toolchain_path}" ]] || mkdir -p ${toolchain_path}
         if [[ ! -d "${toolchain_path}/${gun_file//.tar.xz/}/bin" ]]; then
-            echo -e "${INFO} Start downloading the ARM GNU toolchain [ ${gun_file} ]..."
+            echo -e "${INFO} Start downloading the ARM GNU toolchain [ ${dev_repo}/${gun_file} ]..."
 
             # Download the ARM GNU toolchain file. If it fails, wait 1 minute and try again, try 10 times.
             for i in {1..10}; do
