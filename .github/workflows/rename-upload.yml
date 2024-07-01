@@ -1,0 +1,43 @@
+name: Rename and Upload Release Asset
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      set_release:
+        description: "test test"
+        required: false
+        default: "default-e"
+        type: choice
+        options:
+          - default
+
+jobs:
+  rename-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download original file
+        run: |
+          ls -R
+          wget https://github.com/ChaoliesTinnu/amlogic-s9xxx-armbian/releases/download/kernel_stable/5.15.161.tar.gz
+          wget https://github.com/ChaoliesTinnu/amlogic-s9xxx-armbian/releases/download/kernel_stable/6.1.96.tar.gz
+
+      - name: Rename file
+        run: |
+          ls
+          mv 5.15.161.tar.gz 5.15.y.tar.gz
+          mv 6.1.96.tar.gz 6.1.y.tar.gz
+
+      - name: Upload new file
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./5.15.y.tar.gz
+          asset_name: 5.15.y.tar.gz
+          asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
