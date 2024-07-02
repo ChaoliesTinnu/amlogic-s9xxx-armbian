@@ -173,6 +173,7 @@ on:
           - 5.15.y_5.10.y
           - 5.15.161
           - 6.1.96
+          - 6.6.36
       auto_kernel:
         description: "Auto use the latest kernel."
         required: false
@@ -221,6 +222,7 @@ on:
           - ophub
           - angel
           - yourname
+          - tinnu
 
 env:
   TZ: America/New_York
