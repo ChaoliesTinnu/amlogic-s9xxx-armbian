@@ -75,7 +75,7 @@ package_list="all"
 compress_format="xz"
 
 # Cross compile toolchain download mirror
-# dev_repo="https://github.com/ophub/kernel/releases/download/dev"
+dev_repo_org="https://github.com/ophub/kernel/releases/download/dev"
 dev_repo="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.3.rel1/binrel"
 # Arm GNU Toolchain source: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 gun_file_x86_64="arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
@@ -238,12 +238,12 @@ toolchain_check() {
 
     # Download armbian
     if [[ ! -f "${armbian_file}" ]]; then
-        echo -e "${INFO} Start downloading Armbian rootfs file [ ${armbian_rootfs_file} ]..."
+        echo -e "${INFO} Start downloading Armbian rootfs file [ ${dev_repo_org}/${armbian_rootfs_file} ]..."
         rm -rf ${armbian_path} && mkdir -p ${armbian_path}
 
         # Download Armbian rootfs file. If it fails, wait 1 minute and try again, try 10 times.
         for i in {1..10}; do
-            curl -fsSL "${dev_repo}/${armbian_rootfs_file}" -o "${armbian_path}/${armbian_rootfs_file}"
+            curl -fsSL "${dev_repo_org}/${armbian_rootfs_file}" -o "${armbian_path}/${armbian_rootfs_file}"
             [[ "${?}" -eq "0" ]] && break || sleep 60
         done
         [[ "${?}" -eq "0" ]] || error_msg "Armbian file download failed"
