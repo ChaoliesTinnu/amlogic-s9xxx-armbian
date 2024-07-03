@@ -76,9 +76,11 @@ compress_format="xz"
 
 # Cross compile toolchain download mirror
 dev_repo_org="https://github.com/ophub/kernel/releases/download/dev"
-dev_repo="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.3.rel1/binrel"
+# gun_repo="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.3.rel1/binrel"
+gun_repo="https://github.com/ChaoliesTinnu/amlogic-s9xxx-armbian/releases/download/dev"
 # Arm GNU Toolchain source: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
-gun_file_x86_64="arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
+# gun_file_x86_64="arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
+gun_file_x86_64="gcc-linaro-11.3.1-2022.06-x86_64_aarch64-linux-gnu.tar.xz"
 gun_file_aarch64="arm-gnu-toolchain-11.3.rel1-aarch64-aarch64-none-elf.tar.xz"
 # Armenian file source: https://github.com/ophub/amlogic-s9xxx-armbian/releases
 armbian_rootfs_file="armbian.tar.xz"
@@ -281,7 +283,7 @@ toolchain_check() {
         # Choosing Arm GNU Toolchain based on the platform
         if [[ "${arch_info}" == "x86_64" ]]; then
             gun_file="${gun_file_x86_64}"
-            gun_bin="aarch64-none-linux-gnu-"
+            gun_bin="aarch64-linux-gnu-"
         else
             gun_file="${gun_file_aarch64}"
             gun_bin="aarch64-none-elf-"
@@ -290,11 +292,11 @@ toolchain_check() {
         # Download Arm GNU Toolchain
         [[ -d "${toolchain_path}" ]] || mkdir -p ${toolchain_path}
         if [[ ! -d "${toolchain_path}/${gun_file//.tar.xz/}/bin" ]]; then
-            echo -e "${INFO} Start downloading the ARM GNU toolchain [ ${dev_repo}/${gun_file} ]..."
+            echo -e "${INFO} Start downloading the ARM GNU toolchain [ ${gun_repo}/${gun_file} ]..."
 
             # Download the ARM GNU toolchain file. If it fails, wait 1 minute and try again, try 10 times.
             for i in {1..10}; do
-                curl -fsSL "${dev_repo}/${gun_file}" -o "${toolchain_path}/${gun_file}"
+                curl -fsSL "${gun_repo}/${gun_file}" -o "${toolchain_path}/${gun_file}"
                 [[ "${?}" -eq "0" ]] && break || sleep 60
             done
             [[ "${?}" -eq "0" ]] || error_msg "GNU toolchain file download failed."
